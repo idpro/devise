@@ -1,5 +1,7 @@
 require 'devise/strategies/database_authenticatable'
-require 'bcrypt'
+# require 'bcrypt'
+require "rubygems"
+require 'phpass'
 
 module Devise
   module Models
@@ -40,9 +42,8 @@ module Devise
       # Verifies whether an password (ie from sign in) is the user password.
       def valid_password?(password)
         return false if encrypted_password.blank?
-        bcrypt   = ::BCrypt::Password.new(encrypted_password)
-        password = ::BCrypt::Engine.hash_secret("#{password}#{self.class.pepper}", bcrypt.salt)
-        Devise.secure_compare(password, encrypted_password)
+        phpass = Phpass.new(8)
+        phpass.check(password, encrypted_password)
       end
 
       # Set password and password confirmation to nil
@@ -107,7 +108,8 @@ module Devise
 
       # Digests the password using bcrypt.
       def password_digest(password)
-        ::BCrypt::Password.create("#{password}#{self.class.pepper}", :cost => self.class.stretches).to_s
+        phpass = Phpass.new(8)
+        phpass.hash(password)
       end
 
       module ClassMethods

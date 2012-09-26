@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/uu59/phpass-ruby.git
+  revision: 22cade9ec1ae759cf6a766235018fbd8b570bc4f
+  specs:
+    phpass-ruby (0.1.2)
+
 PATH
   remote: .
   specs:
@@ -149,6 +155,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-oauth2 (~> 1.0.0)
   omniauth-openid (~> 1.0.1)
+  phpass-ruby!
   rails (~> 3.2.6)
   rdoc
   sqlite3
